@@ -1,52 +1,70 @@
 package com.example.tracker.services;
 
 import com.example.tracker.dtos.CryptoCurrencyDto;
-import com.example.tracker.dtos.EntryDto;
+import com.example.tracker.exceptions.ElementNotFoundException;
 import com.example.tracker.models.CryptoCurrency;
-import com.example.tracker.models.Entry;
-import com.example.tracker.models.WalletLocations;
 import com.example.tracker.repositories.CryptoCurrencyRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @AllArgsConstructor
 public class CryptoCurrencyService {
 
-    public List<CryptoCurrencyDto> getAllEntries(){
-        return null;
+    private final CryptoCurrencyRepository cryptoCurrencyRepository;
+
+    public List<CryptoCurrencyDto> getAllCurrencies(){
+        return cryptoCurrencyRepository.findAll()
+                .stream()
+                .map(this::mapToDto)
+                .collect(toList());
     }
 
     @Transactional(readOnly = true)
-    public List<CryptoCurrencyDto> getEntry(Long id){
-        return null;
+    public CryptoCurrencyDto getCryptoCurrency(Long id){
+        CryptoCurrency cryptoCurrency = cryptoCurrencyRepository.findById(id)
+                .orElseThrow(()->new ElementNotFoundException("CryptoCurrency not find with id" + id));
+        return mapToDto(cryptoCurrency);
     }
 
     @Transactional
-    public List<CryptoCurrencyDto> save(Long id){
-        return null;
+    public void save(CryptoCurrencyDto cryptoCurrencyDto){
+        cryptoCurrencyRepository.save(mapToCurrency(cryptoCurrencyDto));
     }
 
     @Transactional
-    public List<CryptoCurrencyDto> update(Long id){
-        return null;
+    public void update(CryptoCurrencyDto cryptoCurrencyDto, Long id){
+        CryptoCurrency currency = cryptoCurrencyRepository.getOne(id);
+        currency.setCurrencyCode(cryptoCurrencyDto.getCurrencyCode());
+        currency.setCurrencyName(cryptoCurrencyDto.getCurrencyName());
+        cryptoCurrencyRepository.save(currency);
     }
 
     @Transactional
-    public List<CryptoCurrencyDto> delete(Long id){
-        return null;
+    public void delete(Long id){
+      cryptoCurrencyRepository.deleteById(id);
     }
-
 
 
     private CryptoCurrencyDto mapToDto (CryptoCurrency currency){
-        return null;
+        return CryptoCurrencyDto.builder()
+                .Id(currency.getId())
+                .currencyCode(currency.getCurrencyCode())
+                .currencyName(currency.getCurrencyName())
+                .build();
     }
 
-    private CryptoCurrency mapToEntry(CryptoCurrencyDto cryptoCurrencyDto){
-        return null;
+    private CryptoCurrency mapToCurrency(CryptoCurrencyDto cryptoCurrencyDto){
+        return CryptoCurrency.builder()
+                .currencyCode(cryptoCurrencyDto.getCurrencyCode())
+                .currencyName(cryptoCurrencyDto.getCurrencyName())
+                .build();
     }
 }

@@ -1,6 +1,6 @@
 package com.example.tracker.dtos;
 
-import com.example.tracker.models.WalletLocations;
+import com.example.tracker.models.WalletLocationsEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,10 +13,10 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EntryDto {
-    private Long userId;
-    private String currencyName;
+    private Long reference;
+    private Long currencyId;
     private Integer amount;
     private Instant creationDateTime;
-    private WalletLocations walletLocation;
+    private WalletLocationsEnum walletLocation;
     private Float currentEurosMarketValue;
 }

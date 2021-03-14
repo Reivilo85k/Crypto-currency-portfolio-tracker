@@ -1,27 +1,35 @@
 package com.example.tracker.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.Instant;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Entry {
 
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-    private String currencyName;
+    private Long reference;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private CryptoCurrency currency;
+
     private Integer amount;
+
     private Instant creationDateTime;
-    private WalletLocations walletLocation;
+
+    @Enumerated(EnumType.STRING)
+    private WalletLocationsEnum walletLocation;
+
     private Float currentEurosMarketValue;
 }

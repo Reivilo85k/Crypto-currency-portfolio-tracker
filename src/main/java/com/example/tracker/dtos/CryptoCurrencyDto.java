@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CryptoCurrencyDto {
-    private Long userId;
+    private Long Id;
     private String currencyCode;
     private String currencyName;
 }
