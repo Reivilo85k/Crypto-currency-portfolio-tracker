@@ -59,8 +59,7 @@ public class EntryService {
 
     @Transactional
     public void update(Long id, EntryDto entryDto){
-        CryptoCurrency cryptoCurrency = cryptoCurrencyRepository.findById(entryDto.getCurrencyId())
-                .orElseThrow(()->new ElementNotFoundException("CryptoCurrency not find with id" + entryDto.getCurrencyId()));
+        CryptoCurrency cryptoCurrency = getEntryCurrency(entryDto);
         Entry entry = entryRepository.getOne(id);
         entry.setCurrency(cryptoCurrency);
         entry.setAmount(entryDto.getAmount());
@@ -86,14 +85,18 @@ public class EntryService {
     }
 
     private Entry mapToEntry(EntryDto entryDto){
-        CryptoCurrency cryptoCurrency = cryptoCurrencyRepository.findById(entryDto.getCurrencyId())
-                .orElseThrow(()->new ElementNotFoundException("CryptoCurrency not find with id" + entryDto.getCurrencyId()));
+        CryptoCurrency cryptoCurrency = getEntryCurrency(entryDto);
         return Entry.builder().currency(cryptoCurrency)
                 .amount(entryDto.getAmount())
                 .creationDateTime(Instant.now())
                 .walletLocation(entryDto.getWalletLocation())
                 .currentEurosMarketValue(entryDto.getCurrentEurosMarketValue())
                 .build();
+    }
+
+    private CryptoCurrency getEntryCurrency(EntryDto entryDto){
+        return cryptoCurrencyRepository.findById(entryDto.getCurrencyId())
+                .orElseThrow(()->new ElementNotFoundException("CryptoCurrency not find with id" + entryDto.getCurrencyId()));
     }
 
 }
