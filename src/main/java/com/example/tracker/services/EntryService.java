@@ -77,7 +77,7 @@ public class EntryService {
 
     private EntryDto mapToDto (Entry entry){
       return EntryDto.builder().reference(entry.getReference())
-              .currencyId(entry.getCurrency().getId())
+              .currencyName(entry.getCurrency().getCurrencyName())
               .amount(entry.getAmount())
               .creationDateTime(entry.getCreationDateTime())
               .walletLocation(entry.getWalletLocation())
@@ -96,8 +96,8 @@ public class EntryService {
     }
 
     private CryptoCurrency getEntryCurrency(EntryDto entryDto){
-        return cryptoCurrencyRepository.findById(entryDto.getCurrencyId())
-                .orElseThrow(()->new ElementNotFoundException("CryptoCurrency not find with id" + entryDto.getCurrencyId()));
+        return cryptoCurrencyRepository.findById(entryDto.getCurrencyName())
+                .orElseThrow(()->new ElementNotFoundException("CryptoCurrency not find with id" + entryDto.getCurrencyName()));
     }
 
     private Float getNewEntryCurrentEurosMarketValue(String currencyCode){

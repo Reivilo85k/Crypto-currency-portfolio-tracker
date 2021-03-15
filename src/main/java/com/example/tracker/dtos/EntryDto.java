@@ -14,7 +14,7 @@ import java.time.Instant;
 @NoArgsConstructor
 public class EntryDto {
     private Long reference;
-    private Long currencyId;
+    private String currencyName;
     private Integer amount;
     private Instant creationDateTime;
     private WalletLocationsEnum walletLocation;

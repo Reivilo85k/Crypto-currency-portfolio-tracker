@@ -16,11 +16,8 @@ import java.time.Instant;
 public class CryptoCurrency {
 
     @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String currencyName;
 
     private String currencyCode;
 
-    private String currencyName;
 }

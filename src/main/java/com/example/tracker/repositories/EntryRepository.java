@@ -10,8 +10,6 @@ import java.util.List;
 
 @Repository
 public interface EntryRepository extends JpaRepository<Entry, Long> {
-
-
     List<Entry> findByWalletLocation(WalletLocationsEnum walletLocation);
     List<Entry> findByCurrency(CryptoCurrency cryptoCurrency);
 }

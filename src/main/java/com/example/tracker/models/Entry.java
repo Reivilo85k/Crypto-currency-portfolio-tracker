@@ -21,7 +21,7 @@ public class Entry {
     private Long reference;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "currency_name")
     private CryptoCurrency currency;
 
     private Integer amount;

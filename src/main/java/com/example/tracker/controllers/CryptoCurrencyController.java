@@ -23,9 +23,9 @@ public class CryptoCurrencyController {
         return cryptoCurrencyService.getAllCurrencies();
     }
 
-    @GetMapping("/{id}")
-    public CryptoCurrencyDto getCryptoCurrency(@PathVariable Long id) {
-        return cryptoCurrencyService.getCryptoCurrency(id);
+    @GetMapping("/{currencyName}")
+    public CryptoCurrencyDto getCryptoCurrency(@PathVariable String currencyName) {
+        return cryptoCurrencyService.getCryptoCurrency(currencyName);
     }
 
 
@@ -34,15 +34,13 @@ public class CryptoCurrencyController {
         cryptoCurrencyService.save(cryptoCurrencyDto);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteCurrency(@PathVariable Long id){
-        cryptoCurrencyService.delete(id);
+    @DeleteMapping("/{currencyName}")
+    public void deleteCurrency(@PathVariable String currencyName){
+        cryptoCurrencyService.delete(currencyName);
     }
 
-    @PutMapping("/{id}")
-    public void updateCurrency(@RequestBody CryptoCurrencyDto cryptoCurrencyDto, @PathVariable Long id){
-        cryptoCurrencyService.update(cryptoCurrencyDto, id);
+    @PutMapping("/{currencyName}")
+    public void updateCurrency(@RequestBody CryptoCurrencyDto cryptoCurrencyDto, @PathVariable String currencyName){
+        cryptoCurrencyService.update(cryptoCurrencyDto, currencyName);
     }
-
-
 }

@@ -5,11 +5,9 @@ import com.example.tracker.exceptions.ElementNotFoundException;
 import com.example.tracker.models.CryptoCurrency;
 import com.example.tracker.repositories.CryptoCurrencyRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -28,9 +26,9 @@ public class CryptoCurrencyService {
     }
 
     @Transactional(readOnly = true)
-    public CryptoCurrencyDto getCryptoCurrency(Long id){
-        CryptoCurrency cryptoCurrency = cryptoCurrencyRepository.findById(id)
-                .orElseThrow(()->new ElementNotFoundException("CryptoCurrency not find with id" + id));
+    public CryptoCurrencyDto getCryptoCurrency(String currencyName){
+        CryptoCurrency cryptoCurrency = cryptoCurrencyRepository.findById(currencyName)
+                .orElseThrow(()->new ElementNotFoundException("CryptoCurrency not find with id" + currencyName));
         return mapToDto(cryptoCurrency);
     }
 
@@ -40,28 +38,27 @@ public class CryptoCurrencyService {
     }
 
     @Transactional
-    public void update(CryptoCurrencyDto cryptoCurrencyDto, Long id){
-        CryptoCurrency currency = cryptoCurrencyRepository.getOne(id);
+    public void update(CryptoCurrencyDto cryptoCurrencyDto, String currencyName){
+        CryptoCurrency currency = cryptoCurrencyRepository.getOne(currencyName);
         currency.setCurrencyCode(cryptoCurrencyDto.getCurrencyCode());
         currency.setCurrencyName(cryptoCurrencyDto.getCurrencyName());
         cryptoCurrencyRepository.save(currency);
     }
 
     @Transactional
-    public void delete(Long id){
-      cryptoCurrencyRepository.deleteById(id);
+    public void delete(String currencyName){
+      cryptoCurrencyRepository.deleteById(currencyName);
     }
 
 
-    private CryptoCurrencyDto mapToDto (CryptoCurrency currency){
+    public CryptoCurrencyDto mapToDto (CryptoCurrency currency){
         return CryptoCurrencyDto.builder()
-                .Id(currency.getId())
                 .currencyCode(currency.getCurrencyCode())
                 .currencyName(currency.getCurrencyName())
                 .build();
     }
 
-    private CryptoCurrency mapToCurrency(CryptoCurrencyDto cryptoCurrencyDto){
+    public CryptoCurrency mapToCurrency(CryptoCurrencyDto cryptoCurrencyDto){
         return CryptoCurrency.builder()
                 .currencyCode(cryptoCurrencyDto.getCurrencyCode())
                 .currencyName(cryptoCurrencyDto.getCurrencyName())
