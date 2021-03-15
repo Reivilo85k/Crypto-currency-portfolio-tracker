@@ -23,6 +23,7 @@ public class EntryService {
 
     private final CryptoCurrencyRepository cryptoCurrencyRepository;
     private final EntryRepository entryRepository;
+    private final TickerService tickerService;
 
     public List<EntryDto> getAllEntries(){
         return entryRepository.findAll()
@@ -90,13 +91,17 @@ public class EntryService {
                 .amount(entryDto.getAmount())
                 .creationDateTime(Instant.now())
                 .walletLocation(entryDto.getWalletLocation())
-                .currentEurosMarketValue(entryDto.getCurrentEurosMarketValue())
+                .currentEurosMarketValue(getNewEntryCurrentEurosMarketValue(cryptoCurrency.getCurrencyCode()))
                 .build();
     }
 
     private CryptoCurrency getEntryCurrency(EntryDto entryDto){
         return cryptoCurrencyRepository.findById(entryDto.getCurrencyId())
                 .orElseThrow(()->new ElementNotFoundException("CryptoCurrency not find with id" + entryDto.getCurrencyId()));
+    }
+
+    private Float getNewEntryCurrentEurosMarketValue(String currencyCode){
+        return tickerService.getCurrencyValue(currencyCode);
     }
 
 }
