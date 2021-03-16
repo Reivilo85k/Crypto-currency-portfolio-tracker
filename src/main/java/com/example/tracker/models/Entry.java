@@ -1,9 +1,6 @@
 package com.example.tracker.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -22,13 +19,15 @@ public class Entry {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "currency_name")
+    @NonNull
     private CryptoCurrency currency;
-
+    @NonNull
     private Integer amount;
 
     private Instant creationDateTime;
 
     @Enumerated(EnumType.STRING)
+    @NonNull
     private WalletLocationsEnum walletLocation;
 
     private Float currentEurosMarketValue;

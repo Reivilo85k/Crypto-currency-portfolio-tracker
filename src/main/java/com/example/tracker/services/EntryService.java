@@ -32,6 +32,13 @@ public class EntryService {
                 .collect(toList());
     }
 
+    @Transactional(readOnly = true)
+    public EntryDto getEntry(Long reference){
+        Entry entry = entryRepository.findById(reference)
+                .orElseThrow(()->new ElementNotFoundException("Entry not found with id " + reference));
+        return mapToDto(entry);
+    }
+
     public List<EntryDto> getEntriesByWalletLocation(WalletLocationsEnum walletLocation){
         return entryRepository.findByWalletLocation(walletLocation)
                 .stream()
@@ -44,13 +51,6 @@ public class EntryService {
                 .stream()
                 .map(this::mapToDto)
                 .collect(toList());
-    }
-
-    @Transactional(readOnly = true)
-    public EntryDto getEntry(Long reference){
-        Entry entry = entryRepository.findById(reference)
-                .orElseThrow(()->new ElementNotFoundException("Entry not find with id" + reference));
-        return mapToDto(entry);
     }
 
     @Transactional
@@ -97,7 +97,7 @@ public class EntryService {
 
     private CryptoCurrency getEntryCurrency(EntryDto entryDto){
         return cryptoCurrencyRepository.findById(entryDto.getCurrencyName())
-                .orElseThrow(()->new ElementNotFoundException("CryptoCurrency not find with id" + entryDto.getCurrencyName()));
+                .orElseThrow(()->new ElementNotFoundException("Entry not found with currency " + entryDto.getCurrencyName()));
     }
 
     private Float getNewEntryCurrentEurosMarketValue(String currencyCode){

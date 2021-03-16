@@ -28,7 +28,7 @@ public class CryptoCurrencyService {
     @Transactional(readOnly = true)
     public CryptoCurrencyDto getCryptoCurrency(String currencyName){
         CryptoCurrency cryptoCurrency = cryptoCurrencyRepository.findById(currencyName)
-                .orElseThrow(()->new ElementNotFoundException("CryptoCurrency not find with id" + currencyName));
+                .orElseThrow(()->new ElementNotFoundException("CryptoCurrency not found with id " + currencyName));
         return mapToDto(cryptoCurrency);
     }
 
