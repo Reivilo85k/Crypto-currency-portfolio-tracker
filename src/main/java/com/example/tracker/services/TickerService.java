@@ -1,5 +1,6 @@
 package com.example.tracker.services;
 
+import com.example.tracker.exceptions.TrackerException;
 import com.example.tracker.models.TickerResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,13 @@ public class TickerService {
         Mono<Float[]> response =  client.get()
                 .uri("/ticker"+ "/t" + currencyCode + "EUR")
                 .retrieve()
+                .onStatus(httpStatus -> !HttpStatus.OK.equals(httpStatus),
+                        clientResponse ->
+                                Mono.error(new TrackerException("Failed to connect to currency data provider")))
                 .onStatus(httpStatus -> HttpStatus.BAD_REQUEST.equals(httpStatus),
-                        clientResponse -> Mono.empty())
+                        clientResponse ->
+                                Mono.error(new TrackerException("Failed to retrieve data from data provider with " +
+                                        "this currency code")))
                 .bodyToMono(Float[].class).log();
 
         Float[] result = response.block();

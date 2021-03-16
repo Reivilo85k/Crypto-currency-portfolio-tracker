@@ -19,6 +19,7 @@ public class EntryController {
     private final EntryService entryService;
     private final CryptoCurrencyService cryptoCurrencyService;
 
+
     @GetMapping
     public List<EntryDto> getAllEntries(){
         return entryService.getAllEntries();
