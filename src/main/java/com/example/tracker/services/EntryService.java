@@ -54,8 +54,8 @@ public class EntryService {
     }
 
     @Transactional
-    public void save(EntryDto entryDto){
-        entryRepository.save(mapToEntry(entryDto));
+    public Entry save(EntryDto entryDto){
+        return entryRepository.save(mapToEntry(entryDto));
     }
 
     @Transactional
