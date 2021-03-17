@@ -1,14 +1,10 @@
 package com.example.tracker.controllers;
 
 import com.example.tracker.dtos.CryptoCurrencyDto;
-import com.example.tracker.dtos.EntryDto;
-import com.example.tracker.models.CryptoCurrency;
-import com.example.tracker.models.WalletLocationsEnum;
-import com.example.tracker.services.CryptoCurrencyService;
+import com.example.tracker.ControllersTests.CryptoCurrencyService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @RestController

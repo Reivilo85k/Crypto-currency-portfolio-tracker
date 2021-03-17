@@ -4,11 +4,12 @@ import com.example.tracker.dtos.EntryDto;
 import com.example.tracker.models.CryptoCurrency;
 import com.example.tracker.models.Entry;
 import com.example.tracker.models.WalletLocationsEnum;
-import com.example.tracker.services.CryptoCurrencyService;
-import com.example.tracker.services.EntryService;
+import com.example.tracker.ControllersTests.CryptoCurrencyService;
+import com.example.tracker.ControllersTests.EntryService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 @RestController
@@ -23,6 +24,15 @@ public class EntryController {
     @GetMapping
     public List<EntryDto> getAllEntries(){
         return entryService.getAllEntries();
+    }
+
+    @GetMapping("/combined")
+    public String getCurrentPortfolioValue(){
+        Float result = entryService.getCurrentPortfolioValue();
+        DecimalFormat myFormatter = new DecimalFormat("###,###,###,###.###");
+        String resultString = "The total value of the portfolio updated to current market value is " + myFormatter.format(result) + " Euros";
+        System.out.println(resultString);
+        return resultString;
     }
 
     @GetMapping("/{reference}")

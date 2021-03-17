@@ -1,4 +1,4 @@
-package com.example.tracker.services;
+package com.example.tracker.ControllersTests;
 
 import com.example.tracker.dtos.EntryDto;
 import com.example.tracker.exceptions.ElementNotFoundException;
@@ -104,4 +104,19 @@ public class EntryService {
         return tickerService.getCurrencyValue(currencyCode);
     }
 
+    public Float getCurrentPortfolioValue() {
+        List<EntryDto> allEntries = getAllEntries();
+        Float total = 0.0f;
+        for (EntryDto result : allEntries) {
+           Float updatedCurrentEurosMarketValue = updateEntryCurrentMarketValue(result);
+           Float entryValue = result.getAmount() * updatedCurrentEurosMarketValue;
+           total += entryValue;
+        }
+        return total;
+    }
+
+    private Float updateEntryCurrentMarketValue(EntryDto entryDto){
+        String currencyCode = getEntryCurrency(entryDto).getCurrencyCode();
+        return tickerService.getCurrencyValue(currencyCode);
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.tracker.services;
+package com.example.tracker.ControllersTests;
 
 import com.example.tracker.dtos.EntryDto;
 import com.example.tracker.models.Entry;
@@ -140,10 +140,20 @@ public class EntryControllerTest {
     }
 
     @Test
-    public void getAllEntriesExpectStatusOK() {
+    public void getAllEntriesExpectStatusOKTest() {
         this.webTestClient
                 .get()
                 .uri("api/entry")
+                .exchange()
+                .expectStatus()
+                .isOk();
+    }
+
+    @Test
+    public void getCurrentPortfolioValueExpectStatusOKTest() {
+        this.webTestClient
+                .get()
+                .uri("api/entry/combined")
                 .exchange()
                 .expectStatus()
                 .isOk();

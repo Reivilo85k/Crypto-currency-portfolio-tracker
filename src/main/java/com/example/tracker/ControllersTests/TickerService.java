@@ -1,4 +1,4 @@
-package com.example.tracker.services;
+package com.example.tracker.ControllersTests;
 
 import com.example.tracker.exceptions.TrackerException;
 import com.example.tracker.models.TickerResponse;
