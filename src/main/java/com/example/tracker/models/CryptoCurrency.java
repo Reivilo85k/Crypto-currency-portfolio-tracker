@@ -1,9 +1,6 @@
 package com.example.tracker.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -16,8 +13,9 @@ import java.time.Instant;
 public class CryptoCurrency {
 
     @Id
+    @NonNull
     private String currencyName;
-
+    @NonNull
     private String currencyCode;
 
 }

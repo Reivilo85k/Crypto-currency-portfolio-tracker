@@ -1,7 +1,6 @@
 package com.example.tracker.services;
 
 import com.example.tracker.dtos.EntryDto;
-import com.example.tracker.models.CryptoCurrency;
 import com.example.tracker.models.Entry;
 import com.example.tracker.models.WalletLocationsEnum;
 import lombok.extern.java.Log;
@@ -39,7 +38,6 @@ public class EntryControllerTest {
                 .returnResult(Entry.class);
 
         Entry testEntry = testEntryFluxExchangeResult.getResponseBody().blockFirst();
-        System.out.println(testEntry);
         assert testEntry != null;
         Long reference = testEntry.getReference();
 
@@ -73,12 +71,11 @@ public class EntryControllerTest {
     }
 
     @Test
-    public void updateExpectStatusOKTest() {
+    public void updateCurrencyExpectStatusOKTest() {
         EntryDto entry = new EntryDto();
         entry.setAmount(15);
         entry.setCurrencyName("Bitcoin");
         entry.setWalletLocation(WalletLocationsEnum.DESKTOP);
-
 
         FluxExchangeResult<Entry> testEntryFluxExchangeResult = this.webTestClient
                 .post()
@@ -90,7 +87,6 @@ public class EntryControllerTest {
                 .returnResult(Entry.class);
 
         Entry testEntry = testEntryFluxExchangeResult.getResponseBody().blockFirst();
-        System.out.println(testEntry);
         assert testEntry != null;
         Long reference = testEntry.getReference();
 
@@ -209,7 +205,6 @@ public class EntryControllerTest {
                 .returnResult(Entry.class);
 
         Entry testEntry = testEntryFluxExchangeResult.getResponseBody().blockFirst();
-        System.out.println(testEntry);
         assert testEntry != null;
         Long reference = testEntry.getReference();
         WalletLocationsEnum walletLocation = testEntry.getWalletLocation();
@@ -247,7 +242,6 @@ public class EntryControllerTest {
                 .returnResult(Entry.class);
 
         Entry testEntry = testEntryFluxExchangeResult.getResponseBody().blockFirst();
-        System.out.println(testEntry);
         assert testEntry != null;
         Long reference = testEntry.getReference();
         String currencyName = testEntry.getCurrency().getCurrencyName();
