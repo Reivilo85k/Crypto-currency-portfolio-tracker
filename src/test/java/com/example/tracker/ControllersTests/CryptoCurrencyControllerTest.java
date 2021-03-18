@@ -25,14 +25,14 @@ public class CryptoCurrencyControllerTest {
         cryptoCurrency.setCurrencyCode("AVAX");
         cryptoCurrency.setCurrencyName("Avalanche");
 
-        FluxExchangeResult<CryptoCurrency> testCurrencyFluxExchangeResult = this.webTestClient
+        FluxExchangeResult<CryptoCurrencyDto> testCurrencyFluxExchangeResult = this.webTestClient
                 .post()
                 .uri("api/currency")
                 .body(Mono.just(cryptoCurrency), CryptoCurrency.class)
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .returnResult(CryptoCurrency.class);
+                .returnResult(CryptoCurrencyDto.class);
 
         String currencyName = "Avalanche";
 
@@ -68,14 +68,14 @@ public class CryptoCurrencyControllerTest {
         cryptoCurrency.setCurrencyCode("AVAX");
         cryptoCurrency.setCurrencyName("Avalanche");
 
-        FluxExchangeResult<CryptoCurrency> testCurrencyFluxExchangeResult = this.webTestClient
+        FluxExchangeResult<CryptoCurrencyDto> testCurrencyFluxExchangeResult = this.webTestClient
                 .post()
                 .uri("api/currency")
                 .body(Mono.just(cryptoCurrency), CryptoCurrency.class)
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .returnResult(CryptoCurrency.class);
+                .returnResult(CryptoCurrencyDto.class);
 
         String currencyName = "Avalanche";
 
@@ -106,14 +106,14 @@ public class CryptoCurrencyControllerTest {
         cryptoCurrency.setCurrencyCode("AVAX");
         cryptoCurrency.setCurrencyName("Avalanche");
 
-        FluxExchangeResult<CryptoCurrency> testCurrencyFluxExchangeResult = this.webTestClient
+        FluxExchangeResult<CryptoCurrencyDto> testCurrencyFluxExchangeResult = this.webTestClient
                 .post()
                 .uri("api/currency")
                 .body(Mono.just(cryptoCurrency), CryptoCurrency.class)
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .returnResult(CryptoCurrency.class);
+                .returnResult(CryptoCurrencyDto.class);
 
         String currencyName = "Avalanche";
 

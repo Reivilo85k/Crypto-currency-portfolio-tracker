@@ -28,16 +28,17 @@ public class EntryControllerTest {
         entry.setWalletLocation(WalletLocationsEnum.DESKTOP);
 
 
-        FluxExchangeResult<Entry> testEntryFluxExchangeResult = this.webTestClient
+        FluxExchangeResult<EntryDto> testEntryFluxExchangeResult = this.webTestClient
                 .post()
                 .uri("api/entry")
                 .body(Mono.just(entry), Entry.class)
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .returnResult(Entry.class);
+                .returnResult(EntryDto.class);
 
-        Entry testEntry = testEntryFluxExchangeResult.getResponseBody().blockFirst();
+        EntryDto testEntry = testEntryFluxExchangeResult.getResponseBody().blockLast();
+        System.out.println(testEntry);
         assert testEntry != null;
         Long reference = testEntry.getReference();
 
@@ -77,16 +78,16 @@ public class EntryControllerTest {
         entry.setCurrencyName("Bitcoin");
         entry.setWalletLocation(WalletLocationsEnum.DESKTOP);
 
-        FluxExchangeResult<Entry> testEntryFluxExchangeResult = this.webTestClient
+        FluxExchangeResult<EntryDto> testEntryFluxExchangeResult = this.webTestClient
                 .post()
                 .uri("api/entry")
                 .body(Mono.just(entry), Entry.class)
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .returnResult(Entry.class);
+                .returnResult(EntryDto.class);
 
-        Entry testEntry = testEntryFluxExchangeResult.getResponseBody().blockFirst();
+        EntryDto testEntry = testEntryFluxExchangeResult.getResponseBody().blockLast();
         assert testEntry != null;
         Long reference = testEntry.getReference();
 
@@ -205,16 +206,16 @@ public class EntryControllerTest {
         entry.setWalletLocation(WalletLocationsEnum.DESKTOP);
 
 
-        FluxExchangeResult<Entry> testEntryFluxExchangeResult = this.webTestClient
+        FluxExchangeResult<EntryDto> testEntryFluxExchangeResult = this.webTestClient
                 .post()
                 .uri("api/entry")
                 .body(Mono.just(entry), Entry.class)
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .returnResult(Entry.class);
+                .returnResult(EntryDto.class);
 
-        Entry testEntry = testEntryFluxExchangeResult.getResponseBody().blockFirst();
+        EntryDto testEntry = testEntryFluxExchangeResult.getResponseBody().blockLast();
         assert testEntry != null;
         Long reference = testEntry.getReference();
         WalletLocationsEnum walletLocation = testEntry.getWalletLocation();
@@ -242,19 +243,20 @@ public class EntryControllerTest {
         entry.setWalletLocation(WalletLocationsEnum.DESKTOP);
 
 
-        FluxExchangeResult<Entry> testEntryFluxExchangeResult = this.webTestClient
+        FluxExchangeResult<EntryDto> testEntryFluxExchangeResult = this.webTestClient
                 .post()
                 .uri("api/entry")
                 .body(Mono.just(entry), Entry.class)
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .returnResult(Entry.class);
+                .returnResult(EntryDto.class);
 
-        Entry testEntry = testEntryFluxExchangeResult.getResponseBody().blockFirst();
+        EntryDto testEntry = testEntryFluxExchangeResult.getResponseBody().blockLast();
         assert testEntry != null;
+        System.out.println(testEntry);
         Long reference = testEntry.getReference();
-        String currencyName = testEntry.getCurrency().getCurrencyName();
+        String currencyName = testEntry.getCurrencyName();
 
         this.webTestClient
                 .get()

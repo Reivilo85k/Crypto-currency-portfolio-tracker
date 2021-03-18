@@ -2,7 +2,6 @@ package com.example.tracker.controllers;
 
 import com.example.tracker.dtos.EntryDto;
 import com.example.tracker.models.CryptoCurrency;
-import com.example.tracker.models.Entry;
 import com.example.tracker.models.WalletLocationsEnum;
 import com.example.tracker.ControllersTests.CryptoCurrencyService;
 import com.example.tracker.ControllersTests.EntryService;
@@ -56,7 +55,7 @@ public class EntryController {
 
     @PostMapping
     @ResponseBody
-    public Entry createEntry(@RequestBody EntryDto entryDto){
+    public List<EntryDto> createEntry(@RequestBody EntryDto entryDto){
         return entryService.save(entryDto);
     }
 
